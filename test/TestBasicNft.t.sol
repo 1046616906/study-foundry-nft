@@ -9,6 +9,10 @@ contract TestBasicNft is Test {
     DeployBasicNft public deployBasicNft;
     BasicNft public basicNft;
     address public USER = makeAddr("user");
+
+    string constant PUG =
+        "ipfs://QmRyDzTnZdZzEcuruayRUs1Ap35crYhpj6kAnhKDVgYQeA";
+
     function setUp() public {
         deployBasicNft = new DeployBasicNft();
         basicNft = deployBasicNft.run();
@@ -24,9 +28,7 @@ contract TestBasicNft is Test {
 
     function test_mint_canMintAndHaveABalance() public {
         vm.prank(USER);
-        basicNft.mintNft(
-            "ipfs://QmRyDzTnZdZzEcuruayRUs1Ap35crYhpj6kAnhKDVgYQeA"
-        );
+        basicNft.mintNft(PUG);
         assert(basicNft.balanceOf(USER) == 1);
     }
 }
