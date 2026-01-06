@@ -30,7 +30,9 @@ contract MoodNft is ERC721 {
     }
 
     function flipMood(uint256 tokenId) public {
+        // 1 get nft owner
         address owner = _ownerOf(tokenId);
+        // 2 owner == gms.sender?
         if (!_isAuthorized(owner, msg.sender, tokenId)) {
             revert MoodNft__NotAuthorized();
         }
@@ -42,7 +44,7 @@ contract MoodNft is ERC721 {
     }
 
     function _baseURI() internal pure override returns (string memory) {
-        return "data:application/json;base64;,";
+        return "data:application/json;base64,";
     }
 
     function tokenURI(
