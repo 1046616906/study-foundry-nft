@@ -8,7 +8,8 @@ import {BasicNft} from "src/BasicNft.sol";
 contract TestBasicNft is Test {
     DeployBasicNft public deployBasicNft;
     BasicNft public basicNft;
-    address public USER = makeAddr("user");
+    // 因使用 user 创建地址使用fork 测试会报错，因为该地址在sepolia上面有合约，但是没有继承ERC721就会导致错误
+    address public USER = makeAddr("xiatianuser");
 
     string constant PUG =
         "ipfs://QmRyDzTnZdZzEcuruayRUs1Ap35crYhpj6kAnhKDVgYQeA";
@@ -16,6 +17,7 @@ contract TestBasicNft is Test {
     function setUp() public {
         deployBasicNft = new DeployBasicNft();
         basicNft = deployBasicNft.run();
+        vm.deal(USER, 10 ether);
     }
     function test_basicNft_name() public view {
         string memory name = "PixelPads";
